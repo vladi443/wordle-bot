@@ -29,10 +29,11 @@ Linux / MacOS
 
 Windows
 
-1. Navigate to the folder where the compiled Primes file is located.
+1. Navigate to the folder where the compiled Dictionary file is located.
 2. Once in the targeted folder, open CMD and type ```<preferred-name>.exe``` or double click the ```<preferred-name>.exe``` file from file explorer.
-3. Primes will start either in the CMD window where the command was typed, or will open a new CMD window if opened through file explorer.
-4. Follow the instructions displayed upon starting Primes to use it successfully.
+3. Dictionary will start either in the CMD window where the command was typed, or will open a new CMD window if opened through file explorer.
+4. Dictionary will then begin loading data from the text files and prepare to start. If an error occurs while loading the data from the text files Dictionary will display an error message and exit the process. If this occurs go back to ```step 4-6``` from the installation instructions.
+5. Once started, Dictionary will ask you wheter you want to boot the program in debug mode. Debug mode allows you to input a word that will be traced throughout the program's algorithm, allowing you to easily troubleshoot or identify problems you might encounter. Input Y/n to either boot in debug or normal mode.
 
 Linux / MacOS
 
