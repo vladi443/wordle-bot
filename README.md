@@ -1,4 +1,4 @@
-# dictionary
+# wordle-dictionary
 
 C++ algorithm that scores and attempts to guess the daily word for the popular web game _Wordle_.
 
@@ -71,7 +71,7 @@ Please make sure to update tests as appropriate and document the changes made.
 
 Special thanks to [MakeaREADME](https://www.makeareadme.com) which template and information I used when developing this README.
 
-Special thanks to [a](), from which the ```words_dictionary.txt``` file was taken, and special thanks to [b](), from which the ```words_definitions.txt``` file was taken. You can click on their names to look, use, or support their projects. Their work was crucial for the development of the Dictionary algorithm, so special thanks again for making their work available to the public.
+Special thanks to [english-words github repository](https://github.com/dwyl/english-words), from which the ```words_dictionary.txt``` file was taken, and special thanks to [b](), from which the ```words_definitions.txt``` file was taken. You can click on their names to look, use, or support their projects. Their work was crucial to the development of the Dictionary algorithm, so special thanks again for making their work available to the public.
 
 Dictionary was inspired by the popular [Wordle](https://www.nytimes.com/games/wordle/index.html) Web Game, which you can play by clicking on its name.
 
