@@ -25,8 +25,13 @@ void compute_string(vector<std::string> input_vector);
 
 //main function
 int main() { //int argc, const char * argv[]
+
+	string file_path;
+	cout<<endl<<"# input full path to folder that contains both dictionary files"<<endl;
+	cout<<"# ex. C:\\path\\to\\file or /path/to/file"<<endl<<"> ";
+	cin>>file_path;
     
-    cout<<"fetching data ..."<<endl;
+    cout<<endl<<"# fetching data ..."<<endl;
     
     //define variables to be used in the scoring of the words and loading text files.
     vector<std::string> words{};
@@ -37,8 +42,8 @@ int main() { //int argc, const char * argv[]
     vector<char> vowels_excluded{};
     vector<int> words_score{};
     string tmp_word;
-    ifstream dictionary_list_expanded("/Users/vladi/Documents/files/files/ideas/dictionary/dictionary/words_definitions.txt");
-    ifstream dictionary_list("/Users/vladi/Documents/files/files/ideas/dictionary/dictionary/words_dictionary.txt");
+    ifstream dictionary_list_expanded(file_path+"/words_def.txt");
+    ifstream dictionary_list(file_path+"/words_list.txt");
     bool word_match=false, debug_mode=false, definition_found=false;
     char vowels[5]={'a', 'e', 'o', 'i', 'u'};
     char input[5];
@@ -55,7 +60,8 @@ int main() { //int argc, const char * argv[]
         }
         dictionary_list_expanded.close();
     }else{
-        cout<<"error loading dictionary - definitions"<<endl;
+        cout<<"# error loading dictionary definitions"<<endl;
+		cout<<"# make sure folder path is correct, and folder contains file `words_def.txt`"<<endl;
         exit (EXIT_FAILURE);
     }
     
@@ -65,15 +71,16 @@ int main() { //int argc, const char * argv[]
             words.push_back(tmp_word);
         }
         dictionary_list.close();
-        cout<<"fetching complete ... "<<words.size()+words_expanded.size()<<" objects loaded"<<endl;
+        cout<<"# fetching complete ... "<<words.size()+words_expanded.size()<<" objects loaded"<<endl;
     }else{
-        cout<<"error loading dictionary - list"<<endl;
+        cout<<"# error loading dictionary words"<<endl;
+		cout<<"# make sure folder path is correct, and folder contains file `words_list.txt`"<<endl;
         exit (EXIT_FAILURE);
     }
     
     //filter out only 5 charachter words, note number is different due to offset in the text file.
     for (int i=0; i<words.size(); i++){
-        if (words[i].size()==8){
+        if (words[i].size()==5){
             words_short.push_back(words[i]);
         }
     }
@@ -84,27 +91,21 @@ int main() { //int argc, const char * argv[]
     }
     
     //check whether or not to proceed in debug mode.
-    cout<<"proceed in debug mode (Y/n): ";
+    cout<<"# proceed in debug mode (Y/n): ";
     cin>>debug_mode_input;
     
     if (action_permission(debug_mode_input)){
-        cout<<"trace word: ";
+        cout<<"$ trace word: ";
         cin>>debug_string;
         debug_mode=true;
     }
     
     //check whether or not to compute optimal starting word.
-    cout<<"compute optimal starting word (Y/n): ";
+    cout<<"# compute optimal starting word (Y/n): ";
     cin>>optimal_string_input;
     
     if (action_permission(optimal_string_input)){
         compute_string(words_short);
-    }
-    
-    if (debug_mode){
-        for (int i=0; i<words_expanded.size(); i++){
-            cout<<"INDEX ... "<<i<<" ... "<<words_expanded[i]<<endl;
-        }
     }
     
     //display wordle dictionary usage instructions
@@ -114,28 +115,28 @@ int main() { //int argc, const char * argv[]
     while (!word_match){
         
         //input the word that will be analyzed.
-        cout<<"input: ";
+        cout<<"# input: ";
 
         for (int i=0; i<5; i++){
             cin>>input[i];
         }
         
         //input the feedback obtained after entering the above stated word in wordle.
-        cout<<"output: ";
+        cout<<"# output: ";
         
         for (int i=0; i<5; i++){
             cin>>output[i];
         }
         
         //beginning of scoring algorithm.
-        cout<<"indexing ..."<<endl;
+        cout<<endl<<"# indexing ..."<<endl;
         for (int i=0; i<words_short.size(); i++){
             //trace the selected word inputted if debug mode is on throughout the algorithm.
             if (debug_mode){
                 if (words_short[i].find(debug_string)!=std::string::npos){
                     string debug_tmp_string=words_short[i];
                     debug_tmp_string.erase(std::remove(debug_tmp_string.begin(), debug_tmp_string.end(), '\n'), debug_tmp_string.cend());
-                    cout<<"STRING ... "<<debug_tmp_string;
+                    cout<<"$ STRING ... "<<debug_tmp_string;
                 }
             }
             for (int c=0; c<5; c++){
@@ -144,7 +145,7 @@ int main() { //int argc, const char * argv[]
                     if (words_short[i].find(debug_string)!=std::string::npos){
                         string debug_tmp_string=words_short[i];
                         debug_tmp_string.erase(std::remove(debug_tmp_string.begin(), debug_tmp_string.end(), '\n'), debug_tmp_string.cend());
-                        cout<<"[CHAR ... "<<input[c]<<" INDEX ... "<<c<<"] ";
+                        cout<<"$ [CHAR ... "<<input[c]<<" INDEX ... "<<c<<"] ";
                     }
                 }
                 //check the value of the output result from the current word.
@@ -170,7 +171,7 @@ int main() { //int argc, const char * argv[]
                         //if debug mode is on, it displays the value of the current word based on the current value of "output".
                         if (debug_mode){
                             if (words_short[i].find(debug_string)!=std::string::npos){
-                                cout<<"[CASE 0 ... VALUE ... "<<words_score[i]<<"] ";
+                                cout<<"$ [CASE 0 ... VALUE ... "<<words_score[i]<<"] ";
                             }
                         }
                         break;
@@ -179,7 +180,7 @@ int main() { //int argc, const char * argv[]
                         //checks if charachter is present in the same location as the inputted word.
                         //if charachter is present, score is decreased as the mystery word will have
                         //the charachter at a different location.
-                        if (words_short[i].at(c+2)==input[c]){
+                        if (words_short[i].at(c)==input[c]){
                             words_score[i]=words_score[i]-36;
                         }else{
                             //if the word is present at a different location and the current looped word
@@ -197,7 +198,7 @@ int main() { //int argc, const char * argv[]
                         //if debug mode is on, it displays the value of the current word based on the current value of "output".
                         if (debug_mode){
                             if (words_short[i].find(debug_string)!=std::string::npos){
-                                cout<<"[CASE 1 ... VALUE ... "<<words_score[i]<<"] ";
+                                cout<<"$ [CASE 1 ... VALUE ... "<<words_score[i]<<"] ";
                             }
                         }
                         break;
@@ -208,7 +209,7 @@ int main() { //int argc, const char * argv[]
                         //number of matching charachters the word has with the mystery word.
                         //if a forbidden charachter is encountered, the exponential factor is
                         //reset and the word's score is decreased.
-                        if (words_short[i].at(c+2)==input[c]){
+                        if (words_short[i].at(c)==input[c]){
                             if (word_check(chars_excluded, words_short[i])){
                                 words_score[i]=words_score[i]+(9*pow(words_coef_contains, 3));
                                 words_coef_contains++;
@@ -229,14 +230,14 @@ int main() { //int argc, const char * argv[]
                         //if debug mode is on, it displays the value of the current word based on the current value of "output".
                         if (debug_mode){
                             if (words_short[i].find(debug_string)!=std::string::npos){
-                                cout<<"[CASE 2 ... VALUE ... "<<words_score[i]<<" COEF ... "<<words_coef_contains<<"] ";
+                                cout<<"$ [CASE 2 ... VALUE ... "<<words_score[i]<<" COEF ... "<<words_coef_contains<<"] ";
                             }
                         }
                         break;
                     //if the user input for the output value does not meet the listed criteria,
                     //the process is skipped and the user is notified they entered a wrong charachter.
                     default:
-                        cout<<"input mismatch"<<endl;
+                        cout<<"# input mismatch"<<endl;
                         break;
                 }
                 if (debug_mode){
@@ -283,11 +284,11 @@ int main() { //int argc, const char * argv[]
         //selected word can be easier.
         if (debug_mode){
             char tmp_char_input;
-            cout<<"display matching words (Y/n): ";
+            cout<<"$ display matching words (Y/n): ";
             cin>>tmp_char_input;
             if (action_permission(tmp_char_input)){
                 for (int i=0; i<20; i++){
-                    cout<<words_short[i]<<" ... "<<words_score[i]<<endl;
+                    cout<<"$ "<<words_short[i]<<" ... "<<words_score[i]<<endl;
                 }
             }
         }else{
@@ -303,14 +304,14 @@ int main() { //int argc, const char * argv[]
                         transform(tmp_string.begin(), tmp_string.end(), tmp_string.begin(),
                             [](unsigned char c){ return std::tolower(c); });
                         if (words_short[i].find(tmp_string)!=std::string::npos&&isspace(words_expanded[c].at(5))){
-                            cout<<"#  "<<words_score[i]<<words_short[i]<<words_expanded[c].substr(5, words_expanded[c].size()-5)<<" ... "<<endl;
+                            cout<<"#  "<<words_score[i]<<" "<<words_short[i]<<" ~ "<<words_expanded[c].substr(5, words_expanded[c].size()-5)<<" ... "<<endl;
                             definition_found=true;
                             break;
                         }
                     }
                 }
                 if (!definition_found){
-                    cout<<"#  "<<words_score[i]<<words_short[i]<<" no information available ... "<<endl;
+                    cout<<"#  "<<words_score[i]<<" "<<words_short[i]<<" ~ no information available ... "<<endl;
                 }else{
                     definition_found=false;
                 }
@@ -322,7 +323,7 @@ int main() { //int argc, const char * argv[]
         if (debug_mode){
             for (int i=0; i<words_short.size(); i++){
                 if (words_short[i].find(debug_string)!=std::string::npos){
-                    cout<<endl<<"STRING ..."<<words_short[i]<<"FVALUE ...  "<<words_score[i]<<endl;
+                    cout<<endl<<"$ STRING ..."<<words_short[i]<<"FVALUE ...  "<<words_score[i]<<endl;
                 }
             }
         }
@@ -338,23 +339,14 @@ int main() { //int argc, const char * argv[]
         }
         
         //notify the user the word has been identified successfully,
-        //and ask if the session should be restarted.
+        //and ask if the session should be terminated.
         if (tmp==5){
-            cout<<"words match successful, restart session (Y/n): ";
+            cout<<endl<<"# words match successful, terminate session by inputting a char ";
             char user_input;
             cin>>user_input;
             switch(user_input){
-                case 'Y':
-                case 'y':
-                    word_match=false;
-                    break;
-                case 'N':
-                case 'n':
-                    cout<<"cleaning up ..."<<endl;
-                    word_match=true;
-                    break;
                 default:
-                    cout<<"input not recognized ... "<<endl;
+                    cout<<"# cleaning up ..."<<endl;
                     word_match=true;
                     break;
                     
@@ -396,7 +388,7 @@ bool action_permission(char input_char){
             return false;
             break;
         default:
-            cout<<"input mismatch ... proceeding in normal mode ..."<<endl;
+            cout<<"# input mismatch ... proceeding in normal mode ..."<<endl;
             return false;
             break;
     }
@@ -419,9 +411,9 @@ bool char_unique(string input_string, char input_char){
 
 //void function to display the wordle dictionary usage instructions.
 void display_instructions(){
-    cout<<"caution: output 0 - no match, 1 - match/wrong location, 2 - match/right location"<<endl;
-    cout<<"caution: use space between charachters for input/output (ex. w o r d / 1 0 2 2)"<<endl;
-    cout<<"caution: words scored and displayed in descending order"<<endl;
+    cout<<endl<<"# caution: output 0 - no match, 1 - match/wrong location, 2 - match/right location"<<endl;
+    cout<<"# caution: use space between charachters for input/output (ex. w o r d / 1 0 2 2)"<<endl;
+    cout<<"# caution: words scored and displayed in descending order"<<endl<<endl;
 }
 
 //void function that computes the optimal starting word by calculating the
@@ -429,7 +421,7 @@ void display_instructions(){
 //common charachters.
 void compute_string(vector<std::string> input_vector){
     
-    cout<<"computing ..."<<endl;
+    cout<<"# computing ..."<<endl;
     
     vector<char> alphabet_chars;
     vector<int> words_score;
@@ -479,6 +471,6 @@ void compute_string(vector<std::string> input_vector){
     }
     
     for (int i=0; i<10; i++){
-        cout<<input_vector[i]<<" ... "<<words_score[i]<<endl;
+        cout<<"# "<<input_vector[i]<<" ... "<<words_score[i]<<endl;
     }
 }
