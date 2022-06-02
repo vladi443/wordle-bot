@@ -1,7 +1,7 @@
 /*
-  Wordle dictionary - wordle solver algorithm written in c++ by vladi443.
+  Wordle Bot - wordle solver algorithm written in c++ by vladi443.
   This project is licensed under the GNU GPLv3 license, check github readme for more info.
-  Check out other projects I am working on at vladi443.github.io/ziggurat
+  Check out other projects I am working on at ziggurat.systems
   Bugs and suggestions can be reported on the Wordle dictionary github repository.
  */
 
