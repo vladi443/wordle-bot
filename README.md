@@ -6,9 +6,9 @@ C++ algorithm that rates and attempts to guess the daily word for the popular we
 
 Wordle Bot can be downloaded as an EXE file, or its source code can be manually compiled and executed.
 
-Executable file can be downloaded from [here](https://ziggurat.systems/docs/projects/wordle-dictionary/)
+Executable file can be downloaded from [here](https://ziggurat.systems/docs/projects/wordle-dictionary/).
 
-Instructions on how to compile and execute C++ file can be found [here](https://ziggurat.systems/docs/compile-instructions/)
+Instructions on how to compile and execute C++ file can be found [here](https://ziggurat.systems/docs/compile-instructions/).
 
 ## Usage
 
