@@ -40,7 +40,7 @@ And special thanks to [Custom Dictionary](https://raw.githubusercontent.com/suji
 
 Their work was crucial to the development of Wordle Bot, so special thanks again for making their work available to the public.
 
-Dictionary was inspired by the popular [Wordle](https://www.nytimes.com/games/wordle/index.html) Web Game, which you can play by clicking on its name.
+Dictionary was inspired by the popular [Wordle](https://www.nytimes.com/games/wordle/index.html) Web Game.
 
 ## License
 [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html)
