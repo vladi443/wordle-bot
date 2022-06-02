@@ -32,9 +32,13 @@ Please make sure to update tests as appropriate and document the changes made.
 
 ## Acknowledgements
 
-Special thanks to [MakeaREADME](https://www.makeareadme.com) which template and information I used when developing this README.
+Thanks to [MakeaREADME](https://www.makeareadme.com) which template and information I used when developing this README.
 
-Special thanks to [english-words github repository](https://github.com/dwyl/english-words), from which the ```words-list.txt``` file was taken, and special thanks to [Custom Dictionary](https://raw.githubusercontent.com/sujithps/Dictionary/master/Oxford%20English%20Dictionary.txt), from which the ```words-def.txt``` file was taken. You can click on their names to look, use, or support their projects. Their work was crucial to the development of the Dictionary algorithm, so special thanks again for making their work available to the public.
+Special thanks to [english-words github repository](https://github.com/dwyl/english-words), from which the ```words-list.txt``` file was taken.
+
+And special thanks to [Custom Dictionary](https://raw.githubusercontent.com/sujithps/Dictionary/master/Oxford%20English%20Dictionary.txt), from which the ```words-def.txt``` file was taken. 
+
+Their work was crucial to the development of Wordle Bot, so special thanks again for making their work available to the public.
 
 Dictionary was inspired by the popular [Wordle](https://www.nytimes.com/games/wordle/index.html) Web Game, which you can play by clicking on its name.
 
