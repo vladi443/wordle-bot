@@ -27,15 +27,15 @@ void compute_string(vector<std::string> input_vector);
 //main function
 int main() {  //int argc, const char * argv[]
 
-    string file_path;
-    cout << endl
-         << "# input full path to folder that contains both dictionary files" << endl;
-    cout << "# ex. C:\\path\\to\\file or /path/to/file" << endl
-         << "> ";
-    cin >> file_path;
+    string file_path = ".";
+    // cout << endl
+    //      << "# input full path to folder that contains both dictionary files" << endl;
+    // cout << "# ex. C:\\path\\to\\file or /path/to/file" << endl
+    //      << "> ";
+    // cin >> file_path;
 
-    cout << endl
-         << "# fetching data ..." << endl;
+    // cout << endl
+    //      << "# fetching data ..." << endl;
 
     //define variables to be used in the scoring of the words and loading text files.
     vector<std::string> words{};
@@ -56,6 +56,10 @@ int main() {  //int argc, const char * argv[]
     int words_coef_match = 1;
     int words_coef_contains = 1;
     string debug_string;
+
+    string in_val;
+    string out_val;
+    int num_suggestions = 20;
 
     //open text file and load words with definitions into an array.
     if (dictionary_list_expanded.is_open()) {
@@ -104,6 +108,12 @@ int main() {  //int argc, const char * argv[]
         debug_mode = true;
     }
 
+    if (debug_mode) {
+        cout << "# number of suggestions (" << num_suggestions << " by default): ";
+        cin >> in_val;
+        num_suggestions = stoi(in_val);
+    }
+
     //check whether or not to compute optimal starting word.
     cout << "# compute optimal starting word (Y/n): ";
     cin >> optimal_string_input;
@@ -120,15 +130,17 @@ int main() {  //int argc, const char * argv[]
         //input the word that will be analyzed.
         cout << "# input: ";
 
+        cin >> in_val;
         for (int i = 0; i < 5; i++) {
-            cin >> input[i];
+            input[i] = in_val.at(i);
         }
 
         //input the feedback obtained after entering the above stated word in wordle.
         cout << "# output: ";
 
+        cin >> out_val;
         for (int i = 0; i < 5; i++) {
-            cin >> output[i];
+            output[i] = out_val.at(i) - '0';
         }
 
         //beginning of scoring algorithm.
