@@ -82,14 +82,14 @@ int main() {  //int argc, const char * argv[]
         exit(EXIT_FAILURE);
     }
 
-    //filter out only 5 charachter words, note number is different due to offset in the text file.
+    //filter out only 5 character words, note number is different due to offset in the text file.
     for (int i = 0; i < words.size(); i++) {
         if (words[i].size() == 5) {
             words_short.push_back(words[i]);
         }
     }
 
-    //create an array that will contain the score of each individual 5 charachter word.
+    //create an array that will contain the score of each individual 5 character word.
     for (int i = 0; i < words_short.size(); i++) {
         words_score.push_back(0);
     }
@@ -154,11 +154,11 @@ int main() {  //int argc, const char * argv[]
                 }
                 //check the value of the output result from the current word.
                 switch (output[c]) {
-                    //indicates the charachter is not present in the mystery word.
+                    //indicates the character is not present in the mystery word.
                     case 0:
-                        //checks if the current looped word contains the forbidden charachter.
-                        //if charachter is present, the word's score is decreased.
-                        //if charachter is a vowel, it is added to an array with forbidden vowels.
+                        //checks if the current looped word contains the forbidden character.
+                        //if character is present, the word's score is decreased.
+                        //if character is a vowel, it is added to an array with forbidden vowels.
                         if (words_short[i].find(input[c]) != std::string::npos) {
                             words_score[i] = words_score[i] - 36;
                             for (int b = 0; b < 5; b++) {
@@ -166,11 +166,11 @@ int main() {  //int argc, const char * argv[]
                                     vowels_excluded.push_back(input[c]);
                                 }
                             }
-                            //if current looped word does not contain the forbidden charachter its score increases slightly.
+                            //if current looped word does not contain the forbidden character its score increases slightly.
                         } else {
                             words_score[i] = words_score[i] + 10;
                         }
-                        //forbidden charachter is added to an array with other forbidden charachters..
+                        //forbidden character is added to an array with other forbidden characters..
                         chars_excluded.push_back(input[c]);
                         //if debug mode is on, it displays the value of the current word based on the current value of "output".
                         if (debug_mode) {
@@ -179,16 +179,16 @@ int main() {  //int argc, const char * argv[]
                             }
                         }
                         break;
-                        //indicates the charachter is present in the mystery word, but is located at a different location.
+                        //indicates the character is present in the mystery word, but is located at a different location.
                     case 1:
-                        //checks if charachter is present in the same location as the inputted word.
-                        //if charachter is present, score is decreased as the mystery word will have
-                        //the charachter at a different location.
+                        //checks if character is present in the same location as the inputted word.
+                        //if character is present, score is decreased as the mystery word will have
+                        //the character at a different location.
                         if (words_short[i].at(c) == input[c]) {
                             words_score[i] = words_score[i] - 36;
                         } else {
                             //if the word is present at a different location and the current looped word
-                            //does not contain a forbidden charachter, its score is increased, otherwise
+                            //does not contain a forbidden character, its score is increased, otherwise
                             //the score is decreased.
                             if (words_short[i].find(input[c]) != std::string::npos) {
                                 if (word_check(chars_excluded, words_short[i])) {
@@ -206,12 +206,12 @@ int main() {  //int argc, const char * argv[]
                             }
                         }
                         break;
-                    //indicates the charachter is present in the exact location in the mystery word.
+                    //indicates the character is present in the exact location in the mystery word.
                     case 2:
-                        //if charachter is present at the exact location in the currently looped word,
+                        //if character is present at the exact location in the currently looped word,
                         //the word's points will increase. This increase is exponential based on the
-                        //number of matching charachters the word has with the mystery word.
-                        //if a forbidden charachter is encountered, the exponential factor is
+                        //number of matching characters the word has with the mystery word.
+                        //if a forbidden character is encountered, the exponential factor is
                         //reset and the word's score is decreased.
                         if (words_short[i].at(c) == input[c]) {
                             if (word_check(chars_excluded, words_short[i])) {
@@ -222,7 +222,7 @@ int main() {  //int argc, const char * argv[]
                                 words_score[i] = words_score[i] - 67;
                             }
                         } else {
-                            //if current looped word does contain the charachter somewhere in it,
+                            //if current looped word does contain the character somewhere in it,
                             //its points are increased slightly.
                             if (words_short[i].find(input[c]) != std::string::npos) {
                                 words_score[i] = words_score[i] + 3;
@@ -239,7 +239,7 @@ int main() {  //int argc, const char * argv[]
                         }
                         break;
                     //if the user input for the output value does not meet the listed criteria,
-                    //the process is skipped and the user is notified they entered a wrong charachter.
+                    //the process is skipped and the user is notified they entered a wrong character.
                     default:
                         cout << "# input mismatch" << endl;
                         break;
@@ -251,7 +251,7 @@ int main() {  //int argc, const char * argv[]
                 }
             }
             //if the word does not include a forbidden vowel, and does not have a duplicate
-            //charachter its points are slightly increased. This is made so that present
+            //character its points are slightly increased. This is made so that present
             //vowels can be identified quicker.
             for (int b = 0; b < 5; b++) {
                 if (!(vector_check(vowels_excluded, vowels[b]))) {
@@ -418,14 +418,14 @@ bool char_unique(string input_string, char input_char) {
 void display_instructions() {
     cout << endl
          << "# caution: output 0 - no match, 1 - match/wrong location, 2 - match/right location" << endl;
-    cout << "# caution: use space between charachters for input/output (ex. w o r d / 1 0 2 2)" << endl;
+    cout << "# caution: use space between characters for input/output (ex. w o r d / 1 0 2 2)" << endl;
     cout << "# caution: words scored and displayed in descending order" << endl
          << endl;
 }
 
 //void function that computes the optimal starting word by calculating the
-//frequency of all the charachters and constructing a word with the most
-//common charachters.
+//frequency of all the characters and constructing a word with the most
+//common characters.
 void compute_string(vector<std::string> input_vector) {
     cout << "# computing ..." << endl;
 
